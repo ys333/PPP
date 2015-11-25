@@ -1,0 +1,9 @@
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\bin\Debug\Test4.exe.config
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\bin\Debug\Test4.exe
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\bin\Debug\Test4.pdb
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\obj\Debug\Test4.csprojResolveAssemblyReference.cache
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\obj\Debug\Test4.exe
+c:\users\teacher\documents\visual studio 2013\Projects\Test4\obj\Debug\Test4.pdb
+\\172.19.65.13\students\F12(金曜１，２限）\Test4\bin\Debug\Test4.exe.config
+\\172.19.65.13\students\F12(金曜１，２限）\Test4\obj\Debug\Test4.exe
+\\172.19.65.13\students\F12(金曜１，２限）\Test4\obj\Debug\Test4.pdb
