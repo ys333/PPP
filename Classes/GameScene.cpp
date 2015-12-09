@@ -53,32 +53,73 @@ bool GameScene::init()
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
-	char* tableNumber[] =
-	{
-		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"
-	};
+	
+	for (int i = 0; i < 16; i++){
+	
+		
+		//ランダムな数の生成
+		int randNum = rand() % 32;
+		//ランダムな数をchar型に
+		char tablenum[100];
+		sprintf(tablenum, "%d", randNum);
+		
+		//ボタンの生成
+		if (i <= 8)
+		{
+			MakeButton(tablenum, i + 10, ccp(330 + 100 * (i / 4), 480 - 100 * (i % 4)));
 
-	for (int i = 0; i < 1; i++)
-	{
-		srand((unsigned int)time(NULL));
-
-		int randNum = rand() % 16;
-
-		MakeButton(tableNumber[randNum], i + 10, ccp(250 + 460 * (i / 10), 600 - 60 * (i % 10)));
+		}
+		else if (i >= 8)
+		{
+			MakeButton(tablenum, i + 10, ccp(330 + 100 * (i / 4), 480 - 100 * (i % 4)));
+		}
+		
+		
 	}
 
+	//スプライトを作成
+	CCSize s = CCDirector::sharedDirector()->getVisibleSize();
+	CCSprite* pBar = CCSprite::create("time.png");
+
+	//タイマーにスプライトをセット
+	CCProgressTimer* pTimer = CCProgressTimer::create(pBar);
+
+	//最初は100パーセント
+	pTimer->setPercentage(100);
+
+	//タイマーの形（棒状に設定）
+	pTimer->setType(kCCProgressTimerTypeBar);
+
+	//バーの伸びる方向（x方向に設定）
+	pTimer->setBarChangeRate(ccp(1, 0));
+
+	//タイマーの基準点（左側に設定）
+	pTimer->setMidpoint(ccp(0, 0));
+
+	//タイマーを配置
+	pTimer->setPosition(ccp(100, 20));
+	pTimer->setTag(100);
+	addChild(pTimer);
+
+	//パーセント表示用テキスト
+	CCLabelTTF* percentTxt = CCLabelTTF::create("100", "Arial", 35);
+	percentTxt->setPosition(ccp(pTimer->getPositionX(), pTimer->getPositionY() + 50));
+	percentTxt->setTag(200);
+	addChild(percentTxt);
+
+	this->schedule(schedule_selector(GameScene::update), 1.0f);
 
     return true;
 
 }
 
 //ランダムな数を生成
-void GameScene::randNumber(int randNum)
+/*void GameScene::randNumber(int randNum)
 {
 	srand((unsigned int)time(NULL));
 
 	int randNum = rand() % 16;
-}
+}*/
 
 void GameScene::tapCallback(CCObject* pSender, CCControlEvent event)
 {
@@ -99,7 +140,7 @@ void GameScene::tapCallback(CCObject* pSender, CCControlEvent event)
 	CCLOG("kita:%d", tag);*/
 }
 
-void GameScene::MakeButton(char*name, int num, CCPoint pos)
+void GameScene::MakeButton(char* name, int num, CCPoint pos)
 {
 	
 	// 画像の実際の大きさ
@@ -108,10 +149,10 @@ void GameScene::MakeButton(char*name, int num, CCPoint pos)
 	CCRect cppInsents = CCRectMake(12, 12, 56, 56);
 	CCScale9Sprite* backgroundSprite = CCScale9Sprite::create("button9.png", spriteRect, cppInsents);
 
-	CCLabelTTF* label = CCLabelTTF::create(name, "Arial", 30);
+	CCLabelTTF* label = CCLabelTTF::create(name, "Helvetica", 30);
 	CCControlButton* button = CCControlButton::create(label, backgroundSprite);
 	// ボタンの大きさを指定（背景画像は自動的に伸縮する）
-	button->setPreferredSize(CCSizeMake(300, 50));
+	button->setPreferredSize(CCSizeMake(100, 100));
 	button->setPosition(pos);
 	this->addChild(button, 1, num);
 
@@ -120,5 +161,24 @@ void GameScene::MakeButton(char*name, int num, CCPoint pos)
 	button->addTargetWithActionForControlEvents(this, cccontrol_selector(GameScene::tapCallback), CCControlEventTouchUpInside);
 
 }
+
+void GameScene::update(float dt)
+{
+	//1パーセントずつ追加
+	CCProgressTimer* pTimer = (CCProgressTimer*)this->getChildByTag(100);
+	int percent = pTimer->getPercentage();
+	pTimer->setPercentage(percent - 1);
+
+	//テキストの更新
+	CCLabelTTF* percentTxt = (CCLabelTTF*)this->getChildByTag(200);
+	percentTxt->setString(CCString::createWithFormat("%d", percent)->getCString());
+
+	//100になったら停止
+	if (percent <= 0){
+		this->unscheduleUpdate();
+		percentTxt->setString("GAME OVER");
+	}
+}
+
 
 

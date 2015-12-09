@@ -38,7 +38,7 @@ bool menuScene::init()
 	};
 	for (int i = 0; i < 1; i++)
 	{
-		MakeButton(titleName[i], i + 10, ccp(250 + 460 * (i / 10), 600 - 60 * (i % 10)));
+		MakeButton(titleName[i], i + 10, ccp(visibleSize.width / 2, visibleSize.height / 2));
 	}
 	
 	

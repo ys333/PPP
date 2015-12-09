@@ -3,9 +3,12 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include <string>
 
 USING_NS_CC;
 USING_NS_CC_EXT;
+using namespace std;
+
 class GameScene : public cocos2d::CCLayer
 {
 public:
@@ -15,11 +18,15 @@ public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();
     
-	void GameScene::MakeButton(char*name, int num, CCPoint pos);
-	void GameScene::randNumber(int randNum);
-	void GameScene::createTable(int i, char*tableNumber, int rand);
+	void GameScene::MakeButton(char* name, int num, CCPoint pos);
+	
     
 	void GameScene::tapCallback(CCObject* pSender, CCControlEvent event);
+
+	void GameScene::update(float dt);
+
+
+
     // implement the "static node()" method manually
     CREATE_FUNC(GameScene);
 };
