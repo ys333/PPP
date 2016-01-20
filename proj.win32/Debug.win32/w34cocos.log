@@ -1,4 +1,4 @@
-﻿2015/12/09 14:46:11 にビルドを開始しました。
+﻿2016/01/13 15:37:01 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\w34cocos.vcxproj" (Build ターゲット)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx\include" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx\kazmath\include" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx\platform\win32" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx\platform\third_party\win32" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\cocos2dx\platform\third_party\win32\OGLES" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\external" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\external\chipmunk\include\chipmunk" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\CocosDenshion\include" /I"C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\..\..\..\extensions" /I..\Classes /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc120.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\GameScene.cpp
@@ -17,9 +17,10 @@
          Debug.win32\main.obj
          "C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\Debug.win32\libcocos2d.lib"
          "C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\Debug.win32\libCocosDenshion.lib"
+     1>AppDelegate.obj : warning LNK4075: /EDITANDCONTINUE は /SAFESEH の指定によって無視されます。
          w34cocos.vcxproj -> C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\Debug.win32\w34cocos.exe
      1>プロジェクト "C:\cocos2d-x-2.2.3\projects\pppMain\proj.win32\w34cocos.vcxproj" (Build ターゲット) のビルドが完了しました。
 
 ビルドに成功しました。
 
-経過時間 00:00:01.40
+経過時間 00:00:01.54

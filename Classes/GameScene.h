@@ -25,10 +25,10 @@ public:
 
 	void GameScene::update(float dt);
 
-
+	void GameScene::inputResult(int result);
 
     // implement the "static node()" method manually
-    CREATE_FUNC(GameScene);
+	CREATE_FUNC(GameScene);
 };
 
 #endif // __GAME_SCENE_H__

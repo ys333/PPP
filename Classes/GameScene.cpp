@@ -4,6 +4,10 @@
 #include <time.h>
 USING_NS_CC;
 
+int tableNum[16];
+int sumNum;
+int randSum;
+int clearCount ;
 CCScene* GameScene::scene()
 {
     // 'scene' is an autorelease object
@@ -19,6 +23,7 @@ CCScene* GameScene::scene()
     return scene;
 }
 
+
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
@@ -26,43 +31,29 @@ bool GameScene::init()
     // 1. super init first
     if ( !CCLayer::init() )
     {
-		/*//トグルボタン
-		//OFF状態を示すCCmMenuItemSpriteを作成
-		//OFFの状態
-		CCSprite*itemOff = CCSprite::create("button_check_off.png");
-		//ONの状態を示すCCMenuItemSpriteを作成
-		CCSprite*itemOn = CCSprite::create("button_check_on.png");
-		//ONとOFFのコールバックを指定して
-		//CCMenuItemToggleを作成
-		CCMenuItemToggle*toggleItem =
-			CCMenuItemToggle::createWithTarget(
-			this,
-			menu_selector(GameScene::changeMode),
-			menuItemOff,
-			menuItemOn, NULL);
-		//表示位置の指定
-		toggleItem->setPosition(ccp(
-			toggleItem->getActionByTag().width / 2,
-			winSize.height - toggleItem->getContentSize().height / 2));
-		//CCMenuItemToggleからCCMenuを作成
-		CCMenu*toggleMenu = CCMenu::create(toggleItem, NULL);*/
 
 		return false;
     }
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+	//クリア回数表示
+	
+	//
+	
 
-	
 	for (int i = 0; i < 16; i++){
-	
-		
+
+
 		//ランダムな数の生成
 		int randNum = rand() % 32;
+	
+		tableNum[i] = randNum;
+
 		//ランダムな数をchar型に
 		char tablenum[100];
 		sprintf(tablenum, "%d", randNum);
-		
+
 		//ボタンの生成
 		if (i <= 8)
 		{
@@ -73,9 +64,40 @@ bool GameScene::init()
 		{
 			MakeButton(tablenum, i + 10, ccp(330 + 100 * (i / 4), 480 - 100 * (i % 4)));
 		}
-		
-		
+
 	}
+	MakeButton("skip", 100,ccp(100,100));
+
+	int randA, randB, randC;
+
+	for (int j = 0; j < 3;j++)
+	{
+		int randTable = rand() % 15 + 1;
+
+		switch (j)
+		{
+		case 0:
+			randA = tableNum[randTable];
+			break;
+		case 1:
+			randB = tableNum[randTable];
+			break;
+		case 2:
+			randC = tableNum[randTable];
+			break;
+
+		}
+	}
+	//乱数合計値の表示
+	char sum[100];
+	
+	randSum = randA + randB + randC + sumNum;
+	sprintf(sum, "%d", randSum);
+	CCLabelTTF *text = CCLabelTTF::create(sum, "Arial",36);
+	text->setPosition(CCPointMake(100, 400));
+	this->addChild(text);
+	
+
 
 	//スプライトを作成
 	CCSize s = CCDirector::sharedDirector()->getVisibleSize();
@@ -97,7 +119,7 @@ bool GameScene::init()
 	pTimer->setMidpoint(ccp(0, 0));
 
 	//タイマーを配置
-	pTimer->setPosition(ccp(100, 20));
+	pTimer->setPosition(ccp(400, 20));
 	pTimer->setTag(100);
 	addChild(pTimer);
 
@@ -106,40 +128,109 @@ bool GameScene::init()
 	percentTxt->setPosition(ccp(pTimer->getPositionX(), pTimer->getPositionY() + 50));
 	percentTxt->setTag(200);
 	addChild(percentTxt);
+	//合計値表示テキスト
+	CCLabelTTF* SumNumber = CCLabelTTF::create("0", "Arial", 35);
+	SumNumber->setPosition(CCPointMake(100, 300));
+	SumNumber->setTag(300);
+	addChild(SumNumber);
+	//クリア回数表示
+	CCLabelTTF* clear = CCLabelTTF::create("0", "Arial", 35);
+	clear->setPosition(CCPointMake(100, 350));
+	clear->setTag(400);
+	addChild(clear);
 
-	this->schedule(schedule_selector(GameScene::update), 1.0f);
+	this->schedule(schedule_selector(GameScene::update), 0.5f);
 
     return true;
 
 }
 
-//ランダムな数を生成
-/*void GameScene::randNumber(int randNum)
-{
-	srand((unsigned int)time(NULL));
-
-	int randNum = rand() % 16;
-}*/
 
 void GameScene::tapCallback(CCObject* pSender, CCControlEvent event)
-{
-	/*CCSprite* spr = (CCSprite*)pSender;
+{	
+	CCSprite* spr = (CCSprite*)pSender;
 	int tag = spr->getTag();
-	CCScene* nextScene = NULL;
+	//CCScene* nextScene = NULL;
 	switch (tag)
 	{
 	case	10:
-		nextScene = GameScene::scene();
+		sumNum = sumNum + tableNum[0];
+		
 		break;
-
+	case	11:
+		sumNum = sumNum + tableNum[1];
+		break;
+	case	12:
+		sumNum = sumNum + tableNum[2];
+		break;
+	case	13:
+		sumNum = sumNum + tableNum[3];
+		break;
+	case	14:
+		sumNum = sumNum + tableNum[4];
+		break;
+	case	15:
+		sumNum = sumNum + tableNum[5];
+		break;
+	case	16:
+		sumNum = sumNum + tableNum[6];
+		break;
+	case	17:
+		sumNum = sumNum + tableNum[7];
+		break;
+	case	18:
+		sumNum = sumNum + tableNum[8];
+		break;
+	case	19:
+		sumNum = sumNum + tableNum[9];
+		break;
+	case	20:
+		sumNum = sumNum + tableNum[10];
+		break;
+	case	21:
+		sumNum = sumNum + tableNum[11];
+		break;
+	case	22:
+		sumNum = sumNum + tableNum[12];
+		break;
+	case	23:
+		sumNum = sumNum + tableNum[13];
+		break;
+	case	24:
+		sumNum = sumNum + tableNum[14];
+		break;
+	case	25:
+		sumNum = sumNum + tableNum[15];
+		break;
 	default:
 		return;
 	}
-	CCScene* pScene = CCTransitionFade::create(0.5f, nextScene);
-	CCDirector::sharedDirector()->replaceScene(pScene);
-	CCLOG("kita:%d", tag);*/
-}
+	
+	inputResult(sumNum);
+	
+	//CCScene* pScene = CCTransitionFade::create(0.5f, nextScene);
+	//CCDirector::sharedDirector()->replaceScene(pScene);
+	char sumChar[100];
+	sprintf(sumChar, "%d",sumNum);
+	/*CCLabelTTF *text = CCLabelTTF::create(sumChar, "Arial", 36);
+	text->setPosition(CCPointMake(400, 400));
+	this->addChild(text);*/
+	
 
+	CCLOG("kita:%d", tag);
+}
+void GameScene::inputResult(int sumNum)
+{
+		if (randSum == sumNum){
+			clearCount = clearCount + 1;
+			static int sumNum = 0;
+			CCDirector::sharedDirector()->replaceScene(GameScene::scene());
+		}
+		else if (sumNum >= randSum) {
+		} 
+	
+	//CCLOG("kita:%d", tag);
+}
 void GameScene::MakeButton(char* name, int num, CCPoint pos)
 {
 	
@@ -161,7 +252,6 @@ void GameScene::MakeButton(char* name, int num, CCPoint pos)
 	button->addTargetWithActionForControlEvents(this, cccontrol_selector(GameScene::tapCallback), CCControlEventTouchUpInside);
 
 }
-
 void GameScene::update(float dt)
 {
 	//1パーセントずつ追加
@@ -172,13 +262,22 @@ void GameScene::update(float dt)
 	//テキストの更新
 	CCLabelTTF* percentTxt = (CCLabelTTF*)this->getChildByTag(200);
 	percentTxt->setString(CCString::createWithFormat("%d", percent)->getCString());
-
+	//選択合計数更新
+	CCLabelTTF* SumNumber = (CCLabelTTF*)this->getChildByTag(300);
+	SumNumber->setString(CCString::createWithFormat("%d", sumNum)->getCString());
+	//クリア回数更新
+	CCLabelTTF* clear = (CCLabelTTF*)this->getChildByTag(400);
+	clear->setString(CCString::createWithFormat("%d", clearCount)->getCString());
 	//100になったら停止
 	if (percent <= 0){
 		this->unscheduleUpdate();
 		percentTxt->setString("GAME OVER");
 	}
 }
+
+
+
+
 
 
 
