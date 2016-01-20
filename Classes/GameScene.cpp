@@ -1,13 +1,11 @@
 #include "GameScene.h"
+#include "GameOverScene.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 USING_NS_CC;
 
-int tableNum[16];
-int sumNum;
-int randSum;
-int clearCount ;
+int clearCount;
 CCScene* GameScene::scene()
 {
     // 'scene' is an autorelease object
@@ -46,7 +44,7 @@ bool GameScene::init()
 
 
 		//ランダムな数の生成
-		int randNum = rand() % 32;
+		int randNum = rand() % 32 + 1;
 	
 		tableNum[i] = randNum;
 
@@ -66,7 +64,7 @@ bool GameScene::init()
 		}
 
 	}
-	MakeButton("skip", 100,ccp(100,100));
+	//MakeButton("skip", 100,ccp(100,100));
 
 	int randA, randB, randC;
 
@@ -90,8 +88,10 @@ bool GameScene::init()
 	}
 	//乱数合計値の表示
 	char sum[100];
-	
-	randSum = randA + randB + randC + sumNum;
+	 sumNum = 0;
+	 randSum = 0;
+	 inputCount = 0;
+	randSum = randA + randB + randC;
 	sprintf(sum, "%d", randSum);
 	CCLabelTTF *text = CCLabelTTF::create(sum, "Arial",36);
 	text->setPosition(CCPointMake(100, 400));
@@ -139,7 +139,7 @@ bool GameScene::init()
 	clear->setTag(400);
 	addChild(clear);
 
-	this->schedule(schedule_selector(GameScene::update), 0.5f);
+	this->schedule(schedule_selector(GameScene::update), 0.2f);
 
     return true;
 
@@ -148,14 +148,13 @@ bool GameScene::init()
 
 void GameScene::tapCallback(CCObject* pSender, CCControlEvent event)
 {	
+	inputCount = inputCount + 1;
 	CCSprite* spr = (CCSprite*)pSender;
 	int tag = spr->getTag();
-	//CCScene* nextScene = NULL;
 	switch (tag)
 	{
 	case	10:
 		sumNum = sumNum + tableNum[0];
-		
 		break;
 	case	11:
 		sumNum = sumNum + tableNum[1];
@@ -205,31 +204,35 @@ void GameScene::tapCallback(CCObject* pSender, CCControlEvent event)
 	default:
 		return;
 	}
-	
-	inputResult(sumNum);
-	
-	//CCScene* pScene = CCTransitionFade::create(0.5f, nextScene);
-	//CCDirector::sharedDirector()->replaceScene(pScene);
+
+	inputResult();
+
 	char sumChar[100];
 	sprintf(sumChar, "%d",sumNum);
-	/*CCLabelTTF *text = CCLabelTTF::create(sumChar, "Arial", 36);
-	text->setPosition(CCPointMake(400, 400));
-	this->addChild(text);*/
-	
-
-	CCLOG("kita:%d", tag);
+		
 }
-void GameScene::inputResult(int sumNum)
+void GameScene::inputResult()
 {
+	if (inputCount <= 3){
 		if (randSum == sumNum){
 			clearCount = clearCount + 1;
-			static int sumNum = 0;
+			sumNum = 0;
 			CCDirector::sharedDirector()->replaceScene(GameScene::scene());
 		}
-		else if (sumNum >= randSum) {
-		} 
-	
-	//CCLOG("kita:%d", tag);
+		else if (sumNum > randSum) {
+
+		}
+	}
+	else
+	{	
+		//スコア保存
+		CCUserDefault::sharedUserDefault()
+			->setIntegerForKey("tempScore", clearCount);
+
+		CCUserDefault::sharedUserDefault()->flush();
+
+		CCDirector::sharedDirector()->replaceScene(GameOverScene::scene());
+	}
 }
 void GameScene::MakeButton(char* name, int num, CCPoint pos)
 {

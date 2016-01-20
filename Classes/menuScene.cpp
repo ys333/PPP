@@ -29,6 +29,8 @@ bool menuScene::init()
         return false;
     }
     
+	srand((unsigned)time(NULL));
+
 	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 	char* titleName[] =

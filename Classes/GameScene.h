@@ -11,6 +11,10 @@ using namespace std;
 
 class GameScene : public cocos2d::CCLayer
 {
+	int tableNum[16];
+	int sumNum;
+	int randSum;
+	int inputCount;
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
@@ -25,7 +29,7 @@ public:
 
 	void GameScene::update(float dt);
 
-	void GameScene::inputResult(int result);
+	void GameScene::inputResult();
 
     // implement the "static node()" method manually
 	CREATE_FUNC(GameScene);
